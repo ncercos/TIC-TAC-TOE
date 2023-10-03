@@ -1,0 +1,2 @@
+This is a Tic-Tac-Toe game created using a tutorial by Anna Peterson for CMP 464 @ CUNY Lehman College.
+Tutorial Link: https://javascript.plainenglish.io/the-worlds-most-empowering-tic-tac-toe-javascript-tutorial-a889e4c20883
