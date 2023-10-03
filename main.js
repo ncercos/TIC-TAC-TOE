@@ -14,6 +14,7 @@ const winningCombos = [
 let board;
 let turn;
 let win;
+let ended;
 
 /*----- cached element references -----*/
 const squares = Array.from(document.querySelectorAll('#board div'));
@@ -31,6 +32,8 @@ function init() {
         '', '', ''
         ];
     turn = 'X';
+    win = null;
+    ended = false;
     render();
 };
 
@@ -42,6 +45,7 @@ function render() {
 };
 
 function handleTurn(event) {
+    if(ended === true)return;
     let idx = squares.findIndex(function(square) {
         return square === event.target;
     });
@@ -52,6 +56,9 @@ function handleTurn(event) {
 
     // Check for win
     win = getWinner();
+
+    if(win != null) 
+        ended = true;
 
     // Render changes
     render();
