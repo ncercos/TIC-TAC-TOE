@@ -15,8 +15,8 @@ const winningCombos = [
 /*----- app's state (variables) -----*/
 const [board, setBoard] = React.useState(["","","","","","","","",""])
 const [turn, setTurn] = React.useState('X');
-let win;
-let ended;
+const [win, setWin] = React.useState(null);
+const [ended, setEnded] = React.useState(false);
 
 function handleTurn(event) {
     if(ended === true)return;
@@ -26,9 +26,34 @@ function handleTurn(event) {
     setBoard(newBoard)
     let newTurn = turn === 'X' ? '0' : 'X';
     setTurn(newTurn)
-    //win = getWinner();
-    //if(win != null) ended = true;
+    let winner = getWinner(newBoard);
+    setWin(winner)
+    let hasEnded = winner != null ? true : false;
+    setEnded(hasEnded);
 };
+
+function getWinner(newBoard) {
+    let winner = null;
+
+    winningCombos.forEach(function(combo, index) {
+        if (newBoard[combo[0]] && newBoard[combo[0]] === newBoard[combo[1]] && newBoard[combo[0]] === newBoard[combo[2]]) 
+            winner = newBoard[combo[0]];
+    });
+
+    return winner ? winner : newBoard.includes('') ? null : 'T';
+};
+
+function reset() {
+    setBoard(["","","","","","","","",""]);
+    setTurn('X');
+    setWin(null);
+    setEnded(false);
+}
+
+function Message() {
+    let message = win === 'T' ? `That's a tie!` : win ? `${win} wins the game!` : `It's ${turn}'s turn!`;
+    return <h2>{message}</h2>
+}
 
     return (
         <div>
@@ -43,8 +68,8 @@ function handleTurn(event) {
                     )
                 })}
             </div>
-            <h2>It's X's turn!</h2>
-            <button id="reset-button">Reset</button>
+            <Message/>
+            <button id="reset-button" onClick={reset}>Reset</button>
             </div>
         </div>
     )
