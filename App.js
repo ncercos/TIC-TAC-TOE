@@ -14,7 +14,7 @@ const winningCombos = [
 
 /*----- app's state (variables) -----*/
 const [board, setBoard] = React.useState(["","","","","","","","",""])
-let turn;
+const [turn, setTurn] = React.useState('X');
 let win;
 let ended;
 
@@ -24,7 +24,8 @@ function handleTurn(event) {
     let newBoard = [...board];
     newBoard[idx] = turn;
     setBoard(newBoard)
-    turn = turn === 'X' ? '0' : 'X';
+    let newTurn = turn === 'X' ? '0' : 'X';
+    setTurn(newTurn)
     //win = getWinner();
     //if(win != null) ended = true;
 };
