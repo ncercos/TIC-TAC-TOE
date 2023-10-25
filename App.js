@@ -21,6 +21,7 @@ const [ended, setEnded] = React.useState(false);
 function handleTurn(event) {
     if(ended === true)return;
     let idx = event.target.id
+    if(board[idx] != "")return;
     let newBoard = [...board];
     newBoard[idx] = turn;
     setBoard(newBoard)
